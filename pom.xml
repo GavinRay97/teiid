@@ -47,8 +47,8 @@
         <!-- since we auto-release, we want to push the changes -->
         <basepom.release.push-changes>true</basepom.release.push-changes>
         
-        <project.build.systemJdk>9</project.build.systemJdk>
-        <project.build.targetJdk>8</project.build.targetJdk>
+        <project.build.systemJdk>17</project.build.systemJdk>
+        <project.build.targetJdk>17</project.build.targetJdk>
 
         <derby.version>10.2.1.6</derby.version>
         <mysql.connector.version>8.0.16</mysql.connector.version>
@@ -203,26 +203,7 @@
 			<timezone>-6</timezone>
 		</developer>
 	</developers>
-	<profiles>
-        <profile>
-            <id>wildfly</id>
-            <modules>
-                <module>wildfly</module>
-            </modules>
-            <build>
-                <pluginManagement>
-                    <plugins>
-                        <plugin>
-                            <groupId>org.sonatype.plugins</groupId>
-                            <artifactId>nexus-staging-maven-plugin</artifactId>
-                            <!-- until the builds are separate, needs to match wildfly -->
-                            <version>1.6.8</version>
-                        </plugin>
-                    </plugins>
-                 </pluginManagement>
-             </build>
-        </profile>
-        
+	<profiles>  
         <profile>
         <id>default</id>
         <activation>
@@ -240,7 +221,6 @@
 		<id>release</id>
 		<modules>
 			<module>build</module>
-			<module>wildfly</module>
 		</modules>
 	</profile>
 
@@ -248,7 +228,6 @@
 		<id>final-release</id>
 		<modules>
 			<module>build</module>
-			<module>wildfly</module>
 		</modules>
 		<properties>
             <basepom.check.skip-javadoc>false</basepom.check.skip-javadoc>
@@ -472,6 +451,8 @@
 					<user.dir>${basedir}/target</user.dir>
 					<java.io.tmpdir>${basedir}/target</java.io.tmpdir>
 				</systemPropertyVariables>
+                <parallel>classes</parallel>
+				<useUnlimitedThreads>true</useUnlimitedThreads>
 			</configuration>
 		</plugin>
 		<!-- Build a test-jar for each project, so that src/test/* resources and 
