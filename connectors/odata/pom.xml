@@ -14,7 +14,6 @@
   
   <modules>
     <module>translator-odata4</module>
-    <module>translator-odata</module>
    </modules>
 
 </project>
