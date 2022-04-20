@@ -1,12 +1,12 @@
 package org.teiid.mongodb;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.StringTokenizer;
-
 import com.mongodb.MongoClientOptions;
 import com.mongodb.MongoCredential;
 import com.mongodb.ServerAddress;
+
+import java.util.ArrayList;
+import java.util.List;
+import java.util.StringTokenizer;
 
 public interface MongoDBConfiguration {
 
@@ -53,7 +53,7 @@ public interface MongoDBConfiguration {
                     getPassword().toCharArray());
         }
         else if (getSecurityType().equals(SecurityType.MONGODB_CR.name())) {
-            credential = MongoCredential.createMongoCRCredential(getUsername(),
+            credential = MongoCredential.createCredential(getUsername(),
                     (getAuthDatabase() == null) ? getDatabase(): getAuthDatabase(),
                     getPassword().toCharArray());
         }
@@ -67,7 +67,7 @@ public interface MongoDBConfiguration {
         }
         else if (getUsername() != null && getPassword() != null) {
             // to support legacy pre-3.0 authentication
-            credential = MongoCredential.createMongoCRCredential(
+            credential = MongoCredential.createCredential(
                     getUsername(),
                     (getAuthDatabase() == null) ? getDatabase(): getAuthDatabase(),
                     getPassword().toCharArray());

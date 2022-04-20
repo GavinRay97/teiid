@@ -113,7 +113,7 @@
         <version.org.mockito>1.10.19</version.org.mockito>
         <version.org.jboss.oreva>1.0.0</version.org.jboss.oreva>
         <version.org.mockito>1.10.19</version.org.mockito>
-        <version.org.mongodb.mongo-java-driver>3.9.1</version.org.mongodb.mongo-java-driver>
+        <version.org.mongodb.mongodb-driver-legacy>4.6.0</version.org.mongodb.mongodb-driver-legacy>
         <version.org.reflections>0.9.11</version.org.reflections>
         
         <version.net.oauth.core>20100527</version.net.oauth.core>
@@ -1320,8 +1320,8 @@
             </dependency>
             <dependency>
                 <groupId>org.mongodb</groupId>
-                <artifactId>mongo-java-driver</artifactId>
-                <version>${version.org.mongodb.mongo-java-driver}</version>
+                <artifactId>mongodb-driver-legacy</artifactId>
+                <version>${version.org.mongodb.mongodb-driver-legacy}</version>
             </dependency>
             <dependency>
                 <groupId>org.noggit</groupId>

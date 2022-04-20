@@ -17,22 +17,16 @@
  */
 package org.teiid.translator.mongodb;
 
-import java.io.IOException;
-import java.io.InputStream;
-import java.lang.reflect.Array;
-import java.math.BigDecimal;
-import java.math.BigInteger;
-import java.sql.Blob;
-import java.sql.Clob;
-import java.sql.SQLException;
-import java.sql.SQLXML;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
-import java.util.Map;
-import java.util.TreeMap;
-import java.util.UUID;
-
+import com.mongodb.AggregationOptions;
+import com.mongodb.BasicDBList;
+import com.mongodb.BasicDBObject;
+import com.mongodb.CommandResult;
+import com.mongodb.DB;
+import com.mongodb.DBRef;
+import com.mongodb.MongoException;
+import com.mongodb.gridfs.GridFS;
+import com.mongodb.gridfs.GridFSDBFile;
+import com.mongodb.gridfs.GridFSInputFile;
 import org.bson.types.Binary;
 import org.teiid.core.types.BinaryType;
 import org.teiid.core.types.BlobImpl;
@@ -55,21 +49,36 @@ import org.teiid.metadata.FunctionMethod;
 import org.teiid.metadata.RuntimeMetadata;
 import org.teiid.mongodb.MongoDBConnection;
 import org.teiid.resource.api.ConnectionFactory;
-import org.teiid.translator.*;
+import org.teiid.translator.ExecutionContext;
+import org.teiid.translator.ExecutionFactory;
+import org.teiid.translator.MetadataProcessor;
+import org.teiid.translator.ProcedureExecution;
+import org.teiid.translator.ResultSetExecution;
+import org.teiid.translator.SourceSystemFunctions;
+import org.teiid.translator.Translator;
+import org.teiid.translator.TranslatorException;
+import org.teiid.translator.TranslatorProperty;
+import org.teiid.translator.TypeFacility;
+import org.teiid.translator.UpdateExecution;
 import org.teiid.translator.jdbc.AliasModifier;
 import org.teiid.translator.jdbc.FunctionModifier;
 import org.teiid.util.Version;
 
-import com.mongodb.AggregationOptions;
-import com.mongodb.BasicDBList;
-import com.mongodb.BasicDBObject;
-import com.mongodb.CommandResult;
-import com.mongodb.DB;
-import com.mongodb.DBRef;
-import com.mongodb.MongoException;
-import com.mongodb.gridfs.GridFS;
-import com.mongodb.gridfs.GridFSDBFile;
-import com.mongodb.gridfs.GridFSInputFile;
+import java.io.IOException;
+import java.io.InputStream;
+import java.lang.reflect.Array;
+import java.math.BigDecimal;
+import java.math.BigInteger;
+import java.sql.Blob;
+import java.sql.Clob;
+import java.sql.SQLException;
+import java.sql.SQLXML;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
+import java.util.Map;
+import java.util.TreeMap;
+import java.util.UUID;
 
 @Translator(name="mongodb", description="MongoDB Translator, reads and writes the data to MongoDB")
 public class MongoDBExecutionFactory extends ExecutionFactory<ConnectionFactory, MongoDBConnection> {
@@ -671,10 +680,10 @@ public class MongoDBExecutionFactory extends ExecutionFactory<ConnectionFactory,
 
     public AggregationOptions getOptions(int batchSize) {
         if (this.version.compareTo(TWO_4) < 0) {
-            return AggregationOptions.builder().batchSize(batchSize).outputMode(AggregationOptions.OutputMode.INLINE).build();
+            return AggregationOptions.builder().batchSize(batchSize).build();
         }
         if (this.version.compareTo(TWO_6) < 0) {
-            return AggregationOptions.builder().batchSize(batchSize).outputMode(AggregationOptions.OutputMode.CURSOR)
+            return AggregationOptions.builder().batchSize(batchSize)
                     .allowDiskUse(useDisk()).build();
         }
         return AggregationOptions.builder().batchSize(batchSize).allowDiskUse(useDisk()).build();
