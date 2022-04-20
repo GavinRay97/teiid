@@ -19,7 +19,12 @@
 	    <illegaltransitivereportonly>true</illegaltransitivereportonly>
 	    
 	    <victims.updates>weekly</victims.updates>
-            
+
+        <dep.dependency-analyzer.version>1.12.0</dep.dependency-analyzer.version>
+        <dep.plugin.dependency.version>3.3.0</dep.plugin.dependency.version>
+        <dep.plugin.pmd.version>3.16.0</dep.plugin.pmd.version>
+        <dep.pmd.version>6.44.0</dep.pmd.version>
+
         <basepom.git-id.skip>false</basepom.git-id.skip>
         <basepom.check.skip-license>true</basepom.check.skip-license>
         <basepom.check.skip-spotbugs>true</basepom.check.skip-spotbugs>
