@@ -17,16 +17,11 @@
  */
 package org.teiid.translator.mongodb;
 
-import java.io.ByteArrayInputStream;
-import java.io.IOException;
-import java.io.InputStream;
-import java.lang.reflect.InvocationTargetException;
-import java.lang.reflect.Method;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
-import java.util.StringTokenizer;
-
+import com.mongodb.BasicDBObject;
+import com.mongodb.Cursor;
+import com.mongodb.DBCollection;
+import com.mongodb.DBObject;
+import com.mongodb.WriteResult;
 import org.teiid.core.types.BlobImpl;
 import org.teiid.core.types.BlobType;
 import org.teiid.core.types.InputStreamFactory;
@@ -43,11 +38,15 @@ import org.teiid.translator.ExecutionContext;
 import org.teiid.translator.ProcedureExecution;
 import org.teiid.translator.TranslatorException;
 
-import com.mongodb.Cursor;
-import com.mongodb.DBCollection;
-import com.mongodb.DBObject;
-import com.mongodb.WriteResult;
-import com.mongodb.util.JSON;
+import java.io.ByteArrayInputStream;
+import java.io.IOException;
+import java.io.InputStream;
+import java.lang.reflect.InvocationTargetException;
+import java.lang.reflect.Method;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
+import java.util.StringTokenizer;
 /**
  * This enables the Direct Query execution of the MongoDB queries. For that to happen the procedure
  * invocation needs to be like
@@ -58,7 +57,7 @@ import com.mongodb.util.JSON;
  * semi-colon (;) between each pipeline statement
  *
  *      select x.* from TABLE(call native('city;{$match:{"city":"FREEDOM"}}')) t,
-        xmltable('/city' PASSING JSONTOXML('city', cast(array_get(t.tuple, 1) as BLOB)) COLUMNS city string, state string) x
+ xmltable('/city' PASSING JSONTOXML('city', cast(array_get(t.tuple, 1) as BLOB)) COLUMNS city string, state string) x
  *
  *     select JSONTOXML('city', cast(array_get(t.tuple, 1) as BLOB)) as col from TABLE(call native('city;{$match:{"city":"FREEDOM"}}')) t;
  */
@@ -70,8 +69,8 @@ public class MongoDBDirectQueryExecution extends MongoDBBaseExecution implements
     private MongoDBExecutionFactory executionFactory;
 
     public MongoDBDirectQueryExecution(List<Argument> arguments, @SuppressWarnings("unused") Command cmd,
-            ExecutionContext executionContext, RuntimeMetadata metadata,
-            MongoDBConnection connection, String nativeQuery, boolean returnsArray, MongoDBExecutionFactory ef) {
+                                       ExecutionContext executionContext, RuntimeMetadata metadata,
+                                       MongoDBConnection connection, String nativeQuery, boolean returnsArray, MongoDBExecutionFactory ef) {
         super(executionContext, metadata, connection);
         this.arguments = arguments;
         this.returnsArray = returnsArray;
@@ -110,7 +109,7 @@ public class MongoDBDirectQueryExecution extends MongoDBBaseExecution implements
             while (st.hasMoreTokens()) {
                 String token = st.nextToken();
                 if (token.startsWith("{")) { //$NON-NLS-1$
-                    operations.add(JSON.parse(token));
+                    operations.add(BasicDBObject.parse(token));
                 }
                 else {
                     operations.add(token);
@@ -146,7 +145,7 @@ public class MongoDBDirectQueryExecution extends MongoDBBaseExecution implements
             ArrayList<DBObject> operations = new ArrayList<DBObject>();
             while (st.hasMoreTokens()) {
                 String token = st.nextToken();
-                operations.add((DBObject)JSON.parse(token));
+                operations.add(BasicDBObject.parse(token));
             }
 
             if (operations.isEmpty()) {
@@ -173,7 +172,7 @@ public class MongoDBDirectQueryExecution extends MongoDBBaseExecution implements
         BlobType result = new BlobType(new BlobImpl(new InputStreamFactory() {
             @Override
             public InputStream getInputStream() throws IOException {
-                return new ByteArrayInputStream(JSON.serialize(value).getBytes(Streamable.CHARSET));
+                return new ByteArrayInputStream(value.toString().getBytes(Streamable.CHARSET));
             }
         }));
 

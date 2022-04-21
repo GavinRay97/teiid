@@ -17,11 +17,18 @@
  */
 package org.teiid.translator.mongodb;
 
-import static org.junit.Assert.assertEquals;
-
-import java.util.ArrayList;
-import java.util.Iterator;
-
+import com.mongodb.AggregationOptions;
+import com.mongodb.BasicDBList;
+import com.mongodb.BasicDBObject;
+import com.mongodb.Cursor;
+import com.mongodb.DB;
+import com.mongodb.DBCollection;
+import com.mongodb.DBObject;
+import com.mongodb.DBRef;
+import com.mongodb.QueryBuilder;
+import com.mongodb.ServerAddress;
+import com.mongodb.WriteConcern;
+import com.mongodb.WriteResult;
 import org.junit.Before;
 import org.junit.Ignore;
 import org.junit.Test;
@@ -39,7 +46,10 @@ import org.teiid.translator.ExecutionContext;
 import org.teiid.translator.TranslatorException;
 import org.teiid.translator.UpdateExecution;
 
-import com.mongodb.*;
+import java.util.ArrayList;
+import java.util.Iterator;
+
+import static org.junit.Assert.assertEquals;
 
 @SuppressWarnings("nls")
 public class TestMongoDBUpdateExecution {
@@ -286,7 +296,7 @@ public class TestMongoDBUpdateExecution {
         Mockito.stub(db.collectionExists(Mockito.anyString())).toReturn(true);
         Mockito.stub(connection.getDatabase()).toReturn(db);
 
-        Mockito.stub(db.getCollectionFromString(Mockito.anyString())).toReturn(dbCollection);
+        Mockito.stub(db.getCollection(Mockito.anyString())).toReturn(dbCollection);
         Mockito.stub(dbCollection.findOne(Mockito.any(BasicDBObject.class))).toReturn(match_result);
         WriteResult result = Mockito.mock(WriteResult.class);
         Mockito.stub(result.getN()).toReturn(1);
@@ -336,6 +346,11 @@ public class TestMongoDBUpdateExecution {
         @Override
         public ServerAddress getServerAddress() {
             return null;
+        }
+
+        @Override
+        public int available() {
+            return 0;
         }
 
         @Override
