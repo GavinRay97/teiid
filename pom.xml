@@ -205,25 +205,6 @@
 	</developers>
 	<profiles>
         <profile>
-            <id>wildfly</id>
-            <modules>
-                <module>wildfly</module>
-            </modules>
-            <build>
-                <pluginManagement>
-                    <plugins>
-                        <plugin>
-                            <groupId>org.sonatype.plugins</groupId>
-                            <artifactId>nexus-staging-maven-plugin</artifactId>
-                            <!-- until the builds are separate, needs to match wildfly -->
-                            <version>1.6.8</version>
-                        </plugin>
-                    </plugins>
-                 </pluginManagement>
-             </build>
-        </profile>
-        
-        <profile>
         <id>default</id>
         <activation>
             <activeByDefault>true</activeByDefault>
@@ -240,7 +221,6 @@
 		<id>release</id>
 		<modules>
 			<module>build</module>
-			<module>wildfly</module>
 		</modules>
 	</profile>
 
@@ -248,7 +228,6 @@
 		<id>final-release</id>
 		<modules>
 			<module>build</module>
-			<module>wildfly</module>
 		</modules>
 		<properties>
             <basepom.check.skip-javadoc>false</basepom.check.skip-javadoc>
@@ -1339,8 +1318,8 @@
             </dependency>
             <dependency>
                 <groupId>org.mongodb</groupId>
-                <artifactId>mongo-java-driver</artifactId>
-                <version>${version.org.mongodb.mongo-java-driver}</version>
+                <artifactId>mongodb-driver-legacy</artifactId>
+                <version>${version.org.mongodb.mongodb-driver-legacy}</version>
             </dependency>
             <dependency>
                 <groupId>org.noggit</groupId>
@@ -2081,7 +2060,6 @@
 		<module>cache-caffeine</module>
 		<module>runtime</module>
 		<module>hibernate-dialect</module>
-		<module>eclipselink-platform</module>		
 		<module>olingo-common</module>
 		<module>olingo</module>
         <module>connectors</module>
