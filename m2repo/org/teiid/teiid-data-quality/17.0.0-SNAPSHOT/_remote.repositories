@@ -1,0 +1,6 @@
+#NOTE: This is a Maven Resolver internal implementation file, its format can be changed without prior notice.
+#Thu Apr 21 15:20:38 EDT 2022
+teiid-data-quality-17.0.0-SNAPSHOT.pom>=
+teiid-data-quality-17.0.0-SNAPSHOT-javadoc.jar>=
+teiid-data-quality-17.0.0-SNAPSHOT.jar>=
+teiid-data-quality-17.0.0-SNAPSHOT-sources.jar>=

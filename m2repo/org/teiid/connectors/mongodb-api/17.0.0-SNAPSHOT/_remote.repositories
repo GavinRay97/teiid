@@ -1,0 +1,6 @@
+#NOTE: This is a Maven Resolver internal implementation file, its format can be changed without prior notice.
+#Thu Apr 21 15:21:08 EDT 2022
+mongodb-api-17.0.0-SNAPSHOT.pom>=
+mongodb-api-17.0.0-SNAPSHOT-sources.jar>=
+mongodb-api-17.0.0-SNAPSHOT.jar>=
+mongodb-api-17.0.0-SNAPSHOT-javadoc.jar>=

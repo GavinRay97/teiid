@@ -1,0 +1,8 @@
+#NOTE: This is a Maven Resolver internal implementation file, its format can be changed without prior notice.
+#Thu Apr 21 15:21:00 EDT 2022
+file-s3-17.0.0-SNAPSHOT-javadoc.jar>=
+file-s3-17.0.0-SNAPSHOT-tests.jar>=
+file-s3-17.0.0-SNAPSHOT-sources.jar>=
+file-s3-17.0.0-SNAPSHOT-test-sources.jar>=
+file-s3-17.0.0-SNAPSHOT.jar>=
+file-s3-17.0.0-SNAPSHOT.pom>=

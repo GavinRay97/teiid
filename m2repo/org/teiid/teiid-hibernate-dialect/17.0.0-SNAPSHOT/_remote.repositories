@@ -1,0 +1,6 @@
+#NOTE: This is a Maven Resolver internal implementation file, its format can be changed without prior notice.
+#Thu Apr 21 15:20:48 EDT 2022
+teiid-hibernate-dialect-17.0.0-SNAPSHOT-javadoc.jar>=
+teiid-hibernate-dialect-17.0.0-SNAPSHOT-sources.jar>=
+teiid-hibernate-dialect-17.0.0-SNAPSHOT.jar>=
+teiid-hibernate-dialect-17.0.0-SNAPSHOT.pom>=

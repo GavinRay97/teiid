@@ -1,0 +1,6 @@
+#NOTE: This is a Maven Resolver internal implementation file, its format can be changed without prior notice.
+#Thu Apr 21 15:20:40 EDT 2022
+saxon-xom-17.0.0-SNAPSHOT.jar>=
+saxon-xom-17.0.0-SNAPSHOT-javadoc.jar>=
+saxon-xom-17.0.0-SNAPSHOT-sources.jar>=
+saxon-xom-17.0.0-SNAPSHOT.pom>=

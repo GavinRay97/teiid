@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<metadata>
+  <groupId>org.teiid.connectors</groupId>
+  <artifactId>sandbox</artifactId>
+  <versioning>
+    <versions>
+      <version>17.0.0-SNAPSHOT</version>
+    </versions>
+    <lastUpdated>20220421192025</lastUpdated>
+  </versioning>
+</metadata>

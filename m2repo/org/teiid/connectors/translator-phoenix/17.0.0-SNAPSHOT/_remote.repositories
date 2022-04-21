@@ -1,0 +1,8 @@
+#NOTE: This is a Maven Resolver internal implementation file, its format can be changed without prior notice.
+#Thu Apr 21 15:21:05 EDT 2022
+translator-phoenix-17.0.0-SNAPSHOT.jar>=
+translator-phoenix-17.0.0-SNAPSHOT.pom>=
+translator-phoenix-17.0.0-SNAPSHOT-tests.jar>=
+translator-phoenix-17.0.0-SNAPSHOT-javadoc.jar>=
+translator-phoenix-17.0.0-SNAPSHOT-test-sources.jar>=
+translator-phoenix-17.0.0-SNAPSHOT-sources.jar>=

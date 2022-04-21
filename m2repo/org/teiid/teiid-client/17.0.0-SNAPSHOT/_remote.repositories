@@ -1,0 +1,8 @@
+#NOTE: This is a Maven Resolver internal implementation file, its format can be changed without prior notice.
+#Thu Apr 21 15:20:33 EDT 2022
+teiid-client-17.0.0-SNAPSHOT.pom>=
+teiid-client-17.0.0-SNAPSHOT-sources.jar>=
+teiid-client-17.0.0-SNAPSHOT-javadoc.jar>=
+teiid-client-17.0.0-SNAPSHOT-test-sources.jar>=
+teiid-client-17.0.0-SNAPSHOT.jar>=
+teiid-client-17.0.0-SNAPSHOT-tests.jar>=

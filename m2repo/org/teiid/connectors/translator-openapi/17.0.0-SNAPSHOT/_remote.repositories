@@ -1,0 +1,8 @@
+#NOTE: This is a Maven Resolver internal implementation file, its format can be changed without prior notice.
+#Thu Apr 21 15:21:17 EDT 2022
+translator-openapi-17.0.0-SNAPSHOT-javadoc.jar>=
+translator-openapi-17.0.0-SNAPSHOT-sources.jar>=
+translator-openapi-17.0.0-SNAPSHOT-test-sources.jar>=
+translator-openapi-17.0.0-SNAPSHOT.jar>=
+translator-openapi-17.0.0-SNAPSHOT.pom>=
+translator-openapi-17.0.0-SNAPSHOT-tests.jar>=
