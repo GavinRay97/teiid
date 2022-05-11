@@ -1,5 +1,5 @@
 #NOTE: This is a Maven Resolver internal implementation file, its format can be changed without prior notice.
-#Thu Apr 21 15:20:58 EDT 2022
+#Wed May 11 14:20:25 EDT 2022
 document-api-17.0.0-SNAPSHOT.jar>=
 document-api-17.0.0-SNAPSHOT-test-sources.jar>=
 document-api-17.0.0-SNAPSHOT-javadoc.jar>=

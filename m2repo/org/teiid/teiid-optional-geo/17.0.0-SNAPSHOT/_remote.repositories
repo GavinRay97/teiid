@@ -1,5 +1,5 @@
 #NOTE: This is a Maven Resolver internal implementation file, its format can be changed without prior notice.
-#Thu Apr 21 15:20:39 EDT 2022
+#Wed May 11 14:19:59 EDT 2022
 teiid-optional-geo-17.0.0-SNAPSHOT-sources.jar>=
 teiid-optional-geo-17.0.0-SNAPSHOT-tests.jar>=
 teiid-optional-geo-17.0.0-SNAPSHOT-test-sources.jar>=

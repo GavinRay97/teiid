@@ -1,5 +1,5 @@
 #NOTE: This is a Maven Resolver internal implementation file, its format can be changed without prior notice.
-#Thu Apr 21 15:21:22 EDT 2022
+#Wed May 11 14:21:03 EDT 2022
 translator-simpledb-17.0.0-SNAPSHOT-test-sources.jar>=
 translator-simpledb-17.0.0-SNAPSHOT-tests.jar>=
 translator-simpledb-17.0.0-SNAPSHOT.pom>=

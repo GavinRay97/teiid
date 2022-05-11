@@ -1,5 +1,5 @@
 #NOTE: This is a Maven Resolver internal implementation file, its format can be changed without prior notice.
-#Thu Apr 21 15:20:56 EDT 2022
+#Wed May 11 14:20:23 EDT 2022
 teiid-olingo-17.0.0-SNAPSHOT-tests.jar>=
 teiid-olingo-17.0.0-SNAPSHOT-test-sources.jar>=
 teiid-olingo-17.0.0-SNAPSHOT-odata4.war>=

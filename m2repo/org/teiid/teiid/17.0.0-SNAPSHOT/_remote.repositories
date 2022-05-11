@@ -1,5 +1,5 @@
 #NOTE: This is a Maven Resolver internal implementation file, its format can be changed without prior notice.
-#Thu Apr 21 15:21:40 EDT 2022
+#Wed May 11 14:21:22 EDT 2022
 teiid-17.0.0-SNAPSHOT-src.zip>=
 teiid-17.0.0-SNAPSHOT.pom>=
 teiid-17.0.0-SNAPSHOT-jdbc.jar>=

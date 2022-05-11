@@ -1,5 +1,5 @@
 #NOTE: This is a Maven Resolver internal implementation file, its format can be changed without prior notice.
-#Thu Apr 21 15:20:37 EDT 2022
+#Wed May 11 14:19:56 EDT 2022
 teiid-engine-17.0.0-SNAPSHOT-javadoc.jar>=
 teiid-engine-17.0.0-SNAPSHOT-tests.jar>=
 teiid-engine-17.0.0-SNAPSHOT.jar>=

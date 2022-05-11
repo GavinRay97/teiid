@@ -1,5 +1,5 @@
 #NOTE: This is a Maven Resolver internal implementation file, its format can be changed without prior notice.
-#Thu Apr 21 15:21:19 EDT 2022
+#Wed May 11 14:20:59 EDT 2022
 translator-cassandra-17.0.0-SNAPSHOT.jar>=
 translator-cassandra-17.0.0-SNAPSHOT-javadoc.jar>=
 translator-cassandra-17.0.0-SNAPSHOT-test-sources.jar>=
