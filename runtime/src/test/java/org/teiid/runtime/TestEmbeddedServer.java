@@ -18,38 +18,10 @@
 
 package org.teiid.runtime;
 
-import static org.junit.Assert.*;
-
-import java.io.ByteArrayInputStream;
-import java.io.File;
-import java.io.FileInputStream;
-import java.io.FileOutputStream;
-import java.io.IOException;
-import java.io.InputStream;
-import java.io.StringReader;
-import java.math.BigDecimal;
-import java.net.InetSocketAddress;
-import java.nio.charset.Charset;
-import java.sql.*;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Collection;
-import java.util.HashMap;
-import java.util.Iterator;
-import java.util.List;
-import java.util.Map;
-import java.util.Properties;
-import java.util.concurrent.CompletableFuture;
-import java.util.concurrent.TimeUnit;
-import java.util.concurrent.atomic.AtomicBoolean;
-import java.util.concurrent.atomic.AtomicInteger;
-import java.util.logging.Level;
-import java.util.zip.ZipEntry;
-import java.util.zip.ZipOutputStream;
-
-import javax.transaction.*;
-import javax.transaction.xa.XAResource;
-
+import io.opentracing.Scope;
+import io.opentracing.mock.MockSpan;
+import io.opentracing.mock.MockTracer;
+import io.opentracing.util.GlobalTracer;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Ignore;
@@ -110,10 +82,61 @@ import org.teiid.transport.SSLConfiguration;
 import org.teiid.transport.SocketConfiguration;
 import org.teiid.transport.WireProtocol;
 
-import io.opentracing.Scope;
-import io.opentracing.mock.MockSpan;
-import io.opentracing.mock.MockTracer;
-import io.opentracing.util.GlobalTracer;
+import javax.transaction.HeuristicMixedException;
+import javax.transaction.HeuristicRollbackException;
+import javax.transaction.InvalidTransactionException;
+import javax.transaction.NotSupportedException;
+import javax.transaction.RollbackException;
+import javax.transaction.Status;
+import javax.transaction.Synchronization;
+import javax.transaction.SystemException;
+import javax.transaction.Transaction;
+import javax.transaction.TransactionManager;
+import javax.transaction.xa.XAResource;
+import java.io.ByteArrayInputStream;
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.StringReader;
+import java.math.BigDecimal;
+import java.net.InetSocketAddress;
+import java.nio.charset.Charset;
+import java.sql.BatchUpdateException;
+import java.sql.CallableStatement;
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.ResultSetMetaData;
+import java.sql.SQLException;
+import java.sql.SQLXML;
+import java.sql.Statement;
+import java.sql.Timestamp;
+import java.sql.Types;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Collection;
+import java.util.HashMap;
+import java.util.Iterator;
+import java.util.List;
+import java.util.Map;
+import java.util.Properties;
+import java.util.concurrent.CompletableFuture;
+import java.util.concurrent.TimeUnit;
+import java.util.concurrent.atomic.AtomicBoolean;
+import java.util.concurrent.atomic.AtomicInteger;
+import java.util.logging.Level;
+import java.util.zip.ZipEntry;
+import java.util.zip.ZipOutputStream;
+
+import static org.junit.Assert.assertArrayEquals;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.assertNull;
+import static org.junit.Assert.assertTrue;
+import static org.junit.Assert.fail;
 
 @SuppressWarnings("nls")
 public class TestEmbeddedServer {
@@ -2760,7 +2783,8 @@ public class TestEmbeddedServer {
             List<MockSpan> spans = tracer.finishedSpans();
             assertEquals(0, spans.size());
 
-            try (Scope ignored = tracer.buildSpan("some operation").startActive(true)) {
+            MockSpan currentSpan = tracer.buildSpan("some operation").start();
+            try (Scope ignored = tracer.activateSpan(currentSpan)) {
                 assertNotNull(tracer.activeSpan());
                 stmt = c.createStatement();
                 //execute with an active span
@@ -2781,7 +2805,8 @@ public class TestEmbeddedServer {
             //remote propagation
             Connection remote = TeiidDriver.getInstance().connect("jdbc:teiid:x@mm://"+addr.getHostName()+":"+es.transports.get(0).getPort(), null);
 
-            try (Scope ignored = tracer.buildSpan("some remote operation").startActive(true)) {
+            MockSpan currentSpan2 = tracer.buildSpan("some remote operation").start();
+            try (Scope ignored = tracer.activateSpan(currentSpan2)) {
                 assertNotNull(tracer.activeSpan());
                 stmt = remote.createStatement();
                 //execute with an active span

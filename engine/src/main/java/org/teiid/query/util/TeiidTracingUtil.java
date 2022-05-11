@@ -16,8 +16,13 @@
  */
 package org.teiid.query.util;
 
-import java.util.Map;
-
+import io.opentracing.Scope;
+import io.opentracing.Span;
+import io.opentracing.SpanContext;
+import io.opentracing.Tracer;
+import io.opentracing.propagation.Format.Builtin;
+import io.opentracing.propagation.TextMapExtractAdapter;
+import io.opentracing.tag.Tags;
 import org.teiid.jdbc.tracing.GlobalTracerInjector;
 import org.teiid.json.simple.JSONParser;
 import org.teiid.json.simple.ParseException;
@@ -26,13 +31,7 @@ import org.teiid.logging.CommandLogMessage;
 import org.teiid.logging.LogConstants;
 import org.teiid.logging.LogManager;
 
-import io.opentracing.Scope;
-import io.opentracing.Span;
-import io.opentracing.SpanContext;
-import io.opentracing.Tracer;
-import io.opentracing.propagation.Format.Builtin;
-import io.opentracing.propagation.TextMapExtractAdapter;
-import io.opentracing.tag.Tags;
+import java.util.Map;
 
 public class TeiidTracingUtil {
 
@@ -138,7 +137,7 @@ public class TeiidTracingUtil {
             //when a workitem adds itself to a queue the span will already be active
             return null;
         }
-        return tr.scopeManager().activate(span, false);
+        return tr.scopeManager().activate(span);
     }
 
     private Tracer getTracer() {
@@ -154,7 +153,7 @@ public class TeiidTracingUtil {
             SimpleContentHandler sch = new SimpleContentHandler();
             parser.parse(spanContextJson, sch);
             Map<String, String> result = (Map<String, String>) sch.getResult();
-            return getTracer().extract(Builtin.TEXT_MAP, new TextMapExtractAdapter(result));
+            return getTracer().extract(Builtin.TEXT_MAP_EXTRACT, new TextMapExtractAdapter(result));
         } catch (IllegalArgumentException | ClassCastException | ParseException e) {
             LogManager.logDetail(LogConstants.CTX_DQP, e, "Could not extract the span context"); //$NON-NLS-1$
             return null;
