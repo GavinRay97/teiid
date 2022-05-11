@@ -18,12 +18,13 @@
 
 package org.teiid.jdbc.tracing;
 
-import static org.junit.Assert.*;
-
+import io.opentracing.Scope;
+import io.opentracing.Span;
+import io.opentracing.mock.MockTracer;
 import org.junit.Test;
 
-import io.opentracing.Scope;
-import io.opentracing.mock.MockTracer;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNull;
 
 @SuppressWarnings("nls")
 public class TestTracing {
@@ -31,7 +32,8 @@ public class TestTracing {
     @Test public void testSpanContextInjection() {
         MockTracer tracer = new MockTracer();
         assertNull(GlobalTracerInjector.getSpanContext(tracer));
-        Scope ignored = tracer.buildSpan("x").startActive(true);
+        Span span = tracer.buildSpan("test").start();
+        Scope ignored = tracer.activateSpan(span);
         try {
             assertEquals("{\"spanid\":\"2\",\"traceid\":\"1\"}", GlobalTracerInjector.getSpanContext(tracer));
         } finally {

@@ -18,16 +18,15 @@
 
 package org.teiid.jdbc.tracing;
 
-import java.util.HashMap;
-import java.util.Map;
-
-import org.teiid.jdbc.tracing.TracingHelper.Injector;
-
 import io.opentracing.Span;
 import io.opentracing.Tracer;
 import io.opentracing.propagation.Format.Builtin;
 import io.opentracing.propagation.TextMapInjectAdapter;
 import io.opentracing.util.GlobalTracer;
+import org.teiid.jdbc.tracing.TracingHelper.Injector;
+
+import java.util.HashMap;
+import java.util.Map;
 
 /**
  * Uses the opentracing library to create a json string representation of the span context
@@ -48,7 +47,7 @@ public class GlobalTracerInjector implements Injector {
             return null;
         }
         Map<String,String> spanMap = new HashMap<String, String>();
-        tracer.inject(span.context(), Builtin.TEXT_MAP, new TextMapInjectAdapter(spanMap));
+        tracer.inject(span.context(), Builtin.TEXT_MAP_INJECT, new TextMapInjectAdapter(spanMap));
 
         //simple json creation
         StringBuilder json = new StringBuilder();
